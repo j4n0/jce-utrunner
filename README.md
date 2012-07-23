@@ -1,6 +1,6 @@
 Poor man's unit test library.
 
-![](https://github.com/j4n0/jce-utrunner/raw/master/jce-utrunner/Sources/resources/screenshot.png)
+![](https://github.com/j4n0/jce-utrunner/raw/master/jce-utrunner/sources/resources/screenshot.png)
 
 ### Usage
 
