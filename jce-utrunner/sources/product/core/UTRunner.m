@@ -106,11 +106,15 @@
 -(void) printReport {
     for (UTClass *utClass in self.testCases){
         debug(@"Report:\n%@",[utClass report]);
-    }    
+    }
+    NSDate *timeout = [NSDate dateWithTimeIntervalSinceNow:1];
+    while ([timeout timeIntervalSinceNow]>0) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:1]];
+    }
 }
 
 
--(void) runClass:(UTClass*)utClass 
+-(void) runClass:(UTClass*)utClass
 {
     Class clazz = utClass.clazz;
     id testCase = [clazz new];
@@ -171,6 +175,7 @@
     } 
     @catch (NSException *e) 
     {
+        fprintf(stdout, "ouch!");
         NSDictionary *info = [e userInfo];
         NSString *detail = [NSString stringWithFormat:@"%@: %@\n      %@:%@", 
                             [e name], [e reason], [info valueForKey:@"file"], [info valueForKey:@"line"]];
@@ -190,7 +195,7 @@
     if (self = [super init]){
         ClassFilterBlock classFilter = [self buildClassFilterBlock];
         MethodFilterBlock methodFilter = [self buildMethodFilterBlock];
-        self.testCases = [self testCasesWithClassFilter:classFilter methodFilter:methodFilter];
+        _testCases = [self testCasesWithClassFilter:classFilter methodFilter:methodFilter];
     }
     return self;
 }
