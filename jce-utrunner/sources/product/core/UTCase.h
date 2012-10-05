@@ -6,7 +6,7 @@ NSString *stringWithArguments(NSString *description, ...);
 
 /** Test expression. */
 #define UTAssertTrue(expr, failReason, ...) \
-if (!expr) { \
+if ((!expr)) { \
     NSMutableDictionary *info = [NSMutableDictionary dictionary]; \
     [info setValue:[NSString stringWithUTF8String:__FILE__] forKey:@"file"]; \
     [info setValue:[NSNumber numberWithInt:__LINE__] forKey:@"line"]; \
