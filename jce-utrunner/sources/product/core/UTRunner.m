@@ -103,9 +103,16 @@
 }
 
 
--(void) printReport {
-    for (UTClass *utClass in self.testCases){
-        debug(@"Report:\n%@",[utClass report]);
+-(void) printReport
+{
+    for (UTClass *utClass in self.testCases)
+    {
+        if ([utClass failures]==0){
+            info(@"`\n\n%@",[utClass description]);
+        } else {
+            error(@"`\n\n%@",[utClass description]);
+        }   
+        debug(@"`%@",[utClass report]);
     }
     NSDate *timeout = [NSDate dateWithTimeIntervalSinceNow:1];
     while ([timeout timeIntervalSinceNow]>0) {

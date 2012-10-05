@@ -5,8 +5,6 @@
 
 @implementation UTClass
 
-@synthesize clazz=_clazz, methods=_methods, time=_time, success=_success;
-
 -(id) initWithClass:(Class)clazz {
     if (self=[super init]){
         _clazz = clazz;
@@ -15,14 +13,13 @@
 }
 
 
--(NSString*) report 
+-(NSString*) report
 {
     NSMutableString *report = [NSMutableString string];
-    [report appendString:[self description]];
     BOOL success = YES;
     NSMutableString *methodReport = [NSMutableString string];
     for (UTMethod *m in _methods) {
-        [methodReport appendFormat:@"\n  %@",m];
+        [methodReport appendFormat:@"  %@",m];
         success = success && m.success;
     }
     [report appendFormat:@"%@",methodReport];
@@ -30,13 +27,18 @@
 }
 
 
--(NSString*) description {
-    int failures=0;
+-(NSUInteger) failures {
+    NSUInteger failures=0;
     for (UTMethod *m in _methods) {
-        failures += m.success?:1;
+        failures += m.success?0:1;
     }
-    // prints something like "SomeTest 3/3" with one line break before and after
-    return [NSString stringWithFormat:@"\n%@ %d/%d\n", NSStringFromClass(_clazz), failures, [_methods count]];
+    return failures;
+}
+
+
+-(NSString*) description {
+    // prints something like "SomeTest 3/3"
+    return [NSString stringWithFormat:@"%@ %d/%d", NSStringFromClass(_clazz), [_methods count]-[self failures], [_methods count]];
 }
 
 @end

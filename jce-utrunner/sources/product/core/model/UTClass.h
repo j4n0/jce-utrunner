@@ -8,10 +8,13 @@
 
 /** Class to be tested. */
 @property (nonatomic,assign) Class clazz;
+
 /** Execution time of this method. */
 @property (nonatomic,assign) NSTimeInterval time;
+
 /** Outcome of the method execution. */
 @property (nonatomic,assign) BOOL success;
+
 /** Test methods of this class. */
 @property (nonatomic,strong) NSArray *methods;
 
@@ -23,5 +26,7 @@
 
 /** Human readable report with the outcome of the test case execution. */
 -(NSString*) report;
+
+-(NSUInteger) failures;
 
 @end

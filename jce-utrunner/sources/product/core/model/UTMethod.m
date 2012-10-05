@@ -26,8 +26,9 @@
  */
 -(NSString*) description {
     NSMutableString *diz = [NSMutableString string];
-    [diz appendFormat:@"%@ %f ", _success?@" OK":@"BAD", _time];
+    [diz appendFormat:@"%@ %f ", _success ? @"   OK":@"  BAD", _time];
     [diz appendString:NSStringFromSelector(method_getName(_method))];
+    [diz appendString:@"\n"];
     if (_errorDetail!=nil) [diz appendFormat:@"\n      %@",_errorDetail];
     return diz;
 }
